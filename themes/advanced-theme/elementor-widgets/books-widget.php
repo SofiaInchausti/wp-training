@@ -19,7 +19,7 @@ class Books_Widget extends Widget_Base {
         return [ 'general' ]; // Categoría del widget
     }
 
-    protected function _register_controls() {
+    protected function register_controls() {
 
         $this->start_controls_section(
             'content_section',
@@ -58,16 +58,16 @@ class Books_Widget extends Widget_Base {
         $books_query = new \WP_Query( $args );
 
         if ( $books_query->have_posts() ) :
-            echo '<ul class="books-list">';
+            echo '<div class="books-grid">';
             while ( $books_query->have_posts() ) : $books_query->the_post();
-                echo '<li>';
-                echo '<h3>' . get_the_title() . '</h3>';
-                echo '<p>' . get_the_excerpt() . '</p>';
-                echo '</li>';
+            echo '<div class="book-item">';
+            echo '<h3><a href="' . get_permalink() . '" class="book-link">' . get_the_title() . '</a></h3>';
+            echo '<p>' . get_the_excerpt() . '</p>';
+            echo '</div>';
             endwhile;
-            echo '</ul>';
+            echo '</div>';
         else :
-            echo '<p>No books found.</p>';
+            echo '<p class="text-gray-600 text-center">No books found.</p>';
         endif;
 
         wp_reset_postdata();

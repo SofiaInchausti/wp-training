@@ -1,1 +1,41 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.books-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+@media (min-width: 640px) { /* sm */
+    .books-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) { /* lg */
+    .books-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.book-item {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.book-item h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #2D3748; /* text-gray-800 */
+    margin-bottom: 1rem;
+}
+
+.book-item p {
+    color: #718096; /* text-gray-600 */
+}

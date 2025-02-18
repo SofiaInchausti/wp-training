@@ -37,19 +37,21 @@ const BooksList = () => {
   }
 
   return (
-    <div>
-      <h2 className='font-bold text-red-500'>Lista de Libros</h2>
-      <ul>
+    <div className="max-w-3xl mx-auto py-[24px] bg-white shadow-lg rounded-lg">
+      <h2 className="font-bold text-2xl text-red-500  text-center mb-6">Lista de Libros</h2>
+      <ul className="space-y-6">
         {books.map((book) => (
-          <li key={book.id}>
-            <h3>{book.title.rendered}</h3>
-            {/* Si deseas mostrar el contenido, ten en cuenta que WordPress lo envía como HTML */}
-            <div dangerouslySetInnerHTML={{ __html: book.content.rendered }} />
+          <li
+            key={book.id}
+            className="bg-gray-100 p-4 rounded-lg shadow-md cursor-pointer"
+          >
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">{book.title.rendered}</h3>
+            <div className="text-gray-600 leading-relaxed" dangerouslySetInnerHTML={{ __html: book.content.rendered }} />
           </li>
         ))}
       </ul>
     </div>
-  );
+  );  
 };
 
 export default BooksList;
