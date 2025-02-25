@@ -4,7 +4,7 @@ import './index.css';
 import FavoriteBook from './FavoriteBook';
 
 document.addEventListener("DOMContentLoaded", () => {
-
+  
   const rootElement = document.getElementById("root-shortcode");
 
   if (!rootElement) {
