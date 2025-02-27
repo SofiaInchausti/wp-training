@@ -20,6 +20,7 @@
     <meta property="og:description" content="<?php bloginfo('description'); ?>">
     <meta property="og:url" content="<?php echo esc_url(home_url('/')); ?>">
     <meta property="og:image" content="<?php echo esc_url($og_image); ?>">
+    
 
     <?php wp_head(); ?>
 </head>

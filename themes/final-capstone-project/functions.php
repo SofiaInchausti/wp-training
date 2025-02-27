@@ -26,45 +26,62 @@ function create_books_cpt()
 // Hooking the function to 'init' so it runs when WordPress initializes
 add_action('init', 'create_books_cpt');
 
-// Filter to load custom templates for the "Books" archive and single post views
+
+// Agregar `type="module"` a los scripts de Vite
 function ryp_enqueue_scripts()
 {
+    // add script loader filter
+    add_filter('script_loader_tag', 'add_type_attribute_theme', 10, 3);
 
-    $manifest_path = get_template_directory() . '/dist/.vite/manifest.json';
+    //if the file in template final-capstone-project/dist/main.msj exists
 
-    $dist_url = get_template_directory_uri() . '/dist/';
+    if (file_exists(get_template_directory() . '/dist/.vite/manifest.json')) {
+        // log something in error log
+        $manifest_path = get_template_directory() . '/dist/.vite/manifest.json';
 
-    if (file_exists($manifest_path)) {
-        $manifest = json_decode(file_get_contents($manifest_path), true);
-
-
-        if (isset($manifest['src/main.jsx'])) {
-            $entry = $manifest['src/main.jsx'];
-
-
-            if (isset($entry['css'])) {
-                foreach ($entry['css'] as $css_file) {
-                    wp_enqueue_style('react-style', $dist_url . $css_file, [], null);
+        $dist_url = get_template_directory_uri() . '/dist/';
+    
+        if (file_exists($manifest_path)) {
+            $manifest = json_decode(file_get_contents($manifest_path), true);
+    
+    
+            if (isset($manifest['src/main.jsx'])) {
+                $entry = $manifest['src/main.jsx'];
+    
+    
+                if (isset($manifest['style.css'])) {
+                    $css_file = $manifest['style.css']['file'];
+                    wp_enqueue_style('react-style', get_template_directory_uri() . '/dist/' . $css_file, [], null);
                 }
+    
+    
+    
+                wp_enqueue_script('react-theme', $dist_url . $entry['file'], ['wp-element'], null, true);
             }
-
-
-            wp_enqueue_script('react-script', $dist_url . $entry['file'], ['wp-element'], null, true);
         }
+    } else {
+    
+        wp_enqueue_script(
+            'react-theme',
+            'http://localhost:3334/src/main.jsx',
+            [],
+            null,
+            true
+        );
+        
     }
 }
 add_action('wp_enqueue_scripts', 'ryp_enqueue_scripts');
 
-
-// // Filter to add type="module" attribute to the React app's script tag for module support
-function add_type_attribute($tag, $handle, $src)
+// Filter to add type="module" attribute to the React app's script tag for module support
+function add_type_attribute_theme($tag, $handle, $src)
 {
-    if ($handle === 'react-script') {
+    error_log($handle);
+    if ($handle === 'react-theme') {
         $tag = '<script type="module" src="' . esc_url($src) . '"></script>';
     }
     return $tag;
 }
-add_filter('script_loader_tag', 'add_type_attribute', 10, 3);
 
 
 function add_acf_fields_to_books($response, $post, $request) {
