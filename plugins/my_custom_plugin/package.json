@@ -1,42 +1,53 @@
 {
-  "name": "my-custom-plugin",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module",
-  "dependencies": {
-    "@tailwindcss/vite": "^4.0.7",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.7",
-    "vite": "^6.1.1",
-    "web-vitals": "^4.2.4"
-  },
-  "scripts": {
-    "start": "vite",
-    "build": "vite build",
-    "test": "vite test",
-    "preview": "vite preview"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@vitejs/plugin-react": "^4.3.4"
-  }
+    "name": "my-custom-plugin",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "dependencies": {
+        "@tailwindcss/vite": "^4.0.7",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "tailwindcss": "^4.0.7",
+        "vite": "^6.1.1",
+        "web-vitals": "^4.2.4"
+    },
+    "scripts": {
+        "start": "vite",
+        "build": "vite build",
+        "test": "vite test",
+        "preview": "vite preview",
+        "lint": "eslint . --ext .js,.mjs,.cjs,.jsx",
+        "lint:fix": "eslint . --ext .js,.php --fix",
+        "format": "prettier --write ."
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+        "@eslint/js": "^9.21.0",
+        "@vitejs/plugin-react": "^4.3.4",
+        "eslint": "^9.21.0",
+        "eslint-config-prettier": "^10.0.2",
+        "eslint-plugin-prettier": "^5.2.3",
+        "eslint-plugin-react": "^7.37.4",
+        "eslint-plugin-wordpress": "^0.1.0",
+        "globals": "^16.0.0",
+        "prettier": "^3.5.2"
+    }
 }

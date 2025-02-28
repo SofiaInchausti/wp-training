@@ -60,21 +60,19 @@ function my_custom_plugin_settings()
     add_settings_field('favorite_book', 'Favorite Book', 'my_plugin_favorite_book_callback', 'my-custom-plugin', 'my_plugin_main_section');
 }
 
-// This function renders the input field for the "Favorite Book" option
-function my_plugin_favorite_book_callback()
-{
-    $value = get_option('my_plugin_favorite_book', '');
-    echo '<input type="text" name="my_plugin_favorite_book" value="' . esc_attr($value) . '"/>';
-}
-// $favorite_book = get_option('my_plugin_favorite_book');
-
-// Register custom REST API endpoint to fetch the 'Favorite Book'
+// Registers custom REST API endpoints to fetch and save the 'Favorite Book' setting
 function my_custom_plugin_register_rest_api()
 {
     register_rest_route('my-custom-plugin/v1', '/favorite-book', array(
         'methods' => 'GET',
         'callback' => 'my_custom_plugin_get_favorite_book',
-        'permission_callback' => '__return_true', // Public access (you can adjust this)
+        'permission_callback' => '__return_true', 
+    ));
+
+    register_rest_route('my-custom-plugin/v1', '/favorite-book', array(
+        'methods' => 'POST',
+        'callback' => 'my_custom_plugin_save_favorite_book',
+        'permission_callback' => '__return_true', 
     ));
 }
 
@@ -83,13 +81,28 @@ add_action('rest_api_init', 'my_custom_plugin_register_rest_api');
 // // Callback function to return the "Favorite Book" option
 function my_custom_plugin_get_favorite_book()
 {
-    $favorite_book = get_option('my_plugin_favorite_book', 'Not set');
+    $favorite_book = get_option('my_plugin_favorite_book');
+
+    if (empty($favorite_book)) {
+        return rest_ensure_response(['favorite_book' => '']);
+    }
     return rest_ensure_response(['favorite_book' => $favorite_book]);
 }
+// Saves the "Favorite Book" option via REST API
+function my_custom_plugin_save_favorite_book(WP_REST_Request $request)
+{
+    $favorite_book = $request->get_param('favorite_book');
 
+    if (!empty($favorite_book)) {
+        $updated = update_option('my_plugin_favorite_book', sanitize_text_field($favorite_book));
 
+        if ($updated) {
+            return new WP_REST_Response('Favorite book saved successfully', 200);
+        }
+    }
 
-
+    return new WP_REST_Response('Failed to save favorite book', 500);
+}
 
 function enqueue_react_app()
 {

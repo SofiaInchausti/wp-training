@@ -30,18 +30,17 @@ Once the plugin is activated, a new menu item titled **"My Plugin"** will appear
 ### How It Works
 
 1. **Plugin Activation**:
-   - When the plugin is activated, the `my_custom_plugin_option` is added to the WordPress database using the `add_option()` function.
-   
+    - When the plugin is activated, the `my_custom_plugin_option` is added to the WordPress database using the `add_option()` function.
 2. **Settings Page**:
-   - The settings page is added to the WordPress admin using the `add_menu_page()` function. It contains a form for saving custom settings.
-   
+    - The settings page is added to the WordPress admin using the `add_menu_page()` function. It contains a form for saving custom settings.
 3. **Favorite Book Setting**:
-   - The plugin registers the **Favorite Book** field through the WordPress Settings API.
-   - The value entered in the **Favorite Book** field is saved to the WordPress database and can be retrieved using `get_option()`.
+
+    - The plugin registers the **Favorite Book** field through the WordPress Settings API.
+    - The value entered in the **Favorite Book** field is saved to the WordPress database and can be retrieved using `get_option()`.
 
 4. **Retrieving the Value**:
-   - You can retrieve the saved **Favorite Book** value with the following PHP code:
-     ```php
-     $favorite_book = get_option('my_plugin_favorite_book');
-     echo 'The favorite book is: ' . esc_html($favorite_book);
-     ```
+    - You can retrieve the saved **Favorite Book** value with the following PHP code:
+        ```php
+        $favorite_book = get_option('my_plugin_favorite_book');
+        echo 'The favorite book is: ' . esc_html($favorite_book);
+        ```

@@ -1,4 +1,4 @@
-
+@import 'tailwindcss';
 
 .book-container {
     background-color: white;
@@ -8,17 +8,16 @@
     max-width: 300px;
     margin: 20px auto;
     text-align: center;
-  }
-  
-  .book-title {
+}
+
+.book-title {
     font-size: 20px;
     font-weight: 600;
     color: #333;
     margin-bottom: 8px;
-  }
-  
-  .book-text {
+}
+
+.book-text {
     font-size: 16px;
     color: #666;
-  }
-  
+}
